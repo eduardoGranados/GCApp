@@ -1,0 +1,151 @@
+<%= form_for(@advert) do |f| %>
+    <% if @advert.errors.any? %>
+        <div id="error_explanation">
+            <h2><%= pluralize(@advert.errors.count, "error") %> prohibited this advert from being saved:</h2>
+            <ul>
+                <% @advert.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+        <div class="row mt">
+            <div class="col-lg-12">
+                <div class="form-panel">
+                    <h4 class="mb"><i class="fa fa-angle-right"></i> Información Básica</h4>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Nombre</label>
+                        <div class="col-sm-10">
+                            <%= f.text_field :name , class: "form-control"%>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Descripción</label>
+                        <div class="col-sm-10">
+                            <%= f.text_area( :description, rows: "3", class: "form-control") %>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Imagen</label>
+                        <div class="col-sm-10">
+                            <%= f.file_field :picture , class: "form-control" %>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                </div>
+            </div><!-- col-lg-12-->
+        </div><!-- /row -->
+        <div class="row mt">
+            <div class="col-lg-12">
+                <div class="form-panel">
+                    <h4 class="mb"><i class="fa fa-angle-right"></i> Anuncio</h4>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label">Tipo de Anuncio</label>
+                            <div class="col-sm-10">
+                                <%= f.select(:ad_type, [['Trabajo', 'job'], ['Negocio', 'commerce'], ['Inmueble', 'property']], {}, { :class => 'form-control' }) %>
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <br>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label">Coordenadas</label>
+                            <div class=" form-inline" >
+                                <div class="col-sm-10 form-group">
+                                    <%= f.text_field :longitude, placeholder: "Longitud" , class: "form-control form-long"  %>
+                                    &nbsp;&nbsp;
+                                    <%= f.text_field :latitude, placeholder: "Latitud", class: "form-control form-lat" %>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="map-wrap">
+                            <div id="form-map"></div>
+                            <!--<div id="form-map-icon"></div>-->
+                        </div>
+
+                        <br>
+                        <br>
+                        <br>
+                  </div>
+            </div><!-- col-lg-12-->
+        </div><!-- /row -->
+       <br>
+
+        <%= f.hidden_field :user_id, :value => current_user.id %>
+
+
+        &nbsp;&nbsp;<%= f.button "Crear" , class:"btn btn-theme" %>
+
+       <br>
+       <br>
+
+<% end %>
+
+
+<script type="application/javascript">
+
+    var setCoords = function(map) {
+        $('.form-long').val(map.getCenter().F);
+        $('.form-lat').val(map.getCenter().A);
+//        console.log(map.getCenter());
+    }
+
+    var index_ready = function() {
+      current_pos = new google.maps.LatLng('37.77733837166234', '-122.4471003970337');
+      var mapOptions = {
+
+          zoomControlOptions: {
+              style: google.maps.ZoomControlStyle.SMALL,
+              position: google.maps.ControlPosition.LEFT_CENTER
+          },
+          center: current_pos,
+          zoom: 14,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+      var styles = [
+          {
+              featureType: "poi",
+              stylers: [
+                  { visibility: "off" }
+              ]
+          }];
+      var styledMap = new google.maps.StyledMapType(styles,{name: "Styled Map"});
+      var map =new google.maps.Map(document.getElementById("form-map"), mapOptions);
+
+      //set map styles
+      map.mapTypes.set('map_style', styledMap);
+      map.setMapTypeId('map_style');
+      var marker= new google.maps.Marker({
+          map: map
+      });
+        marker.setPosition(map.getCenter());
+      //on map loaded event
+      var initEvent = google.maps.event.addListener(map, 'tilesloaded', function(){
+          google.maps.event.removeListener(initEvent);
+          $("#main-map").css('opacity','1');
+      });
+
+      var dragEndEvent = google.maps.event.addListener(map, 'drag', function(){
+          setCoords(map);
+          marker.setPosition(map.getCenter());
+      });
+      google.maps.event.addListener(map, 'zoom_changed', function() {
+          setCoords(map);
+          marker.setPosition(map.getCenter());
+      });
+    };
+
+
+    $(document).ready(index_ready);
+    $(document).on('page:load', index_ready);
+</script>

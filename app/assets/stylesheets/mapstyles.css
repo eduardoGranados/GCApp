@@ -1,0 +1,23 @@
+#main-map{
+    opacity: 1;
+    width: 90%;
+    height: 35em;
+    margin: 3em;
+}
+
+#form-map{
+    opacity: 1;
+    width: 90%;
+    height: 35em;
+    margin-left: 5%;
+    margin-top: 5em;
+}
+#form-map-icon{
+    top: 58%;
+    left: 50%;
+    position: absolute;
+    height: 8px;
+    width: 8px;
+    z-index: 100;
+    background-color: black;
+}

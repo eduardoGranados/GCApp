@@ -1,0 +1,2 @@
+rails g migration add_user_to_cars user:references
+rails s -b 192.168.0.12 -p 3000

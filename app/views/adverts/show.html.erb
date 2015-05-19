@@ -1,0 +1,60 @@
+<section id="main-content">
+  <section class="wrapper">
+
+    <!--<p id="notice"><%= notice %></p>-->
+        <br>
+        <br>
+        <br>
+    <div class="row">
+      <div class="col-md-3">
+        <%= image_tag(@advert.picture, width: '100%', height: '100%') if @advert.picture.present? %>
+      </div>
+
+      <div class="col-md-9">
+        <p><b>Nombre: </b><%= @advert.name %></p>
+        <p><b>Descripción: </b><%= @advert.description %></p>
+        <p>
+          <%= link_to 'Edit', edit_advert_path(@advert) %> |
+          <%= link_to 'Destroy', @advert, data: { confirm: 'Are you sure?' }, method: :delete %>
+        </p>
+      </div>
+    </div>
+
+  </section><! --/wrapper -->
+</section><!-- /MAIN CONTENT -->
+
+
+<!--<p id="notice"><%= notice %></p>-->
+
+<!--<p>-->
+  <!--<strong>Name:</strong>-->
+  <!--<%= @advert.name %>-->
+<!--</p>-->
+
+<!--<p>-->
+  <!--<strong>Description:</strong>-->
+  <!--<%= @advert.description %>-->
+<!--</p>-->
+
+<!--<p>-->
+  <!--<strong>Picture:</strong>-->
+  <!--<%= @advert.picture %>-->
+<!--</p>-->
+
+<!--<p>-->
+  <!--<strong>Type:</strong>-->
+  <!--<%= @advert.ad_type %>-->
+<!--</p>-->
+
+<!--<p>-->
+  <!--<strong>Longitude:</strong>-->
+  <!--<%= @advert.longitude %>-->
+<!--</p>-->
+
+<!--<p>-->
+  <!--<strong>Latitude:</strong>-->
+  <!--<%= @advert.latitude %>-->
+<!--</p>-->
+
+
+
