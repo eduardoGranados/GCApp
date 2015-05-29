@@ -224,20 +224,28 @@
             //          strokeColor: '#000000',
             fillOpacity: 1
         };
+        var jobIcon = {
+            url: "<%= asset_path('empleos.svg') %>",
+            fillColor: 'darkslategrey',
+            fillOpacity: 1
+        };
         var commerceIcon = {
             path: 'M20 4H4v2h16V4zm1 10v-2l-1-5H4l-1 5v2h1v6h10v-6h4v6h2v-6h1zm-9 4H6v-4h6v4z',
             fillColor: 'darkslategrey',
-            //          strokeColor: '#000000',
+            strokeColor: 'darkslategrey',
             fillOpacity: 1
         };
         var propertyIcon = {
-            path: 'M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z',
+            url: "<%= asset_path('inmuebles.svg') %>",
+//            path: 'M220.5,111.745c0-6.468-1.326-10.245-6.206-10.245H45.662c-4.879,0-10.162,3.777-10.162,10.245v102.48c0,6.468,5.282,13.274,10.162,13.274h168.632c4.88,0,6.206-6.807,6.206-13.274V111.745z',
             fillColor: 'darkslategrey',
+//            size: new google.maps.Size(60, 50),
             //          strokeColor: '#000000',
+//            origin: new google.maps.Point(0, 0),
+//            anchor: new google.maps.Point(25, 25),
             fillOpacity: 1
         };
         function addMarker(lat,long,type){
-            console.log(lat);
             var location = new google.maps.LatLng(lat, long);
 
             var marker = new google.maps.Marker({
@@ -250,8 +258,8 @@
                 marker.setIcon(propertyIcon);
             }else if(type=='commerce'){
                 marker.setIcon(commerceIcon);
-            }else{
-                marker.setIcon(commerceIcon);
+            }else if(type=='job'){
+                marker.setIcon(jobIcon);
             }
 
             marker.setMap(map);
